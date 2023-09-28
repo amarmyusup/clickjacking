@@ -18,5 +18,7 @@ Creates two html pages:
 * attacker.html - a page that generates our sample attacking iframe
 
 * ### When the page is vulnerable:
+![VULNERABLE](cj.png)
 
 * ### When the page is not vulnerable (may also appear blank):
+![NOT_VULNERABLE](notcj)
