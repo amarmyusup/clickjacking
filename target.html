@@ -1,0 +1,15 @@
+<html>
+	<head>
+		<title>Clickjacking!</title>
+	</head>
+
+	<body>
+		<b style="font-size: larger; font-family: Verdana, Geneva, Tahoma, sans-serif;">
+		<p style="font: bold;">Your Web Application Can be Mounted within an iFrame which makes it vulnerable to ClickJacking!</p>
+		<p>Target: <a href="http://testphp.vulnweb.com/login.php">http://testphp.vulnweb.com/login.php</a></p>
+		<p>If you see the target website rendered below, it is <font color="red">VULNERABLE</font>.</p>
+		<iframe width="900" height="600" src="http://testphp.vulnweb.com/login.php"></iframe>
+		<iframe style="position: absolute; left: 45px; top: 250px; opacity: 0.7; font-family:verdana; background: AliceBlue;" src="cj-attacker.html"></iframe>
+		</b>
+	</body>
+</html>
