@@ -21,4 +21,4 @@ Creates two html pages:
 ![VULNERABLE](cj.png)
 
 * ### When the page is not vulnerable (may also appear blank):
-![NOT_VULNERABLE](notcj)
+![NOT_VULNERABLE](notcj.png)
