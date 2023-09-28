@@ -2,57 +2,62 @@ import os
 import sys
 import webbrowser
 
-# Cek jumlah argumen
+# Function to print usage information
 if len(sys.argv) != 2:
-    print('\n[+] Description: This script quickly verifies if a web page is vulnerable to clickjacking')
-    print('[+] Usage: python {} <url>\n'.format(__file__))
-    sys.exit(1)
+	print('\n[+] Description: %s can quickly verify if a web page is vulnerable to clickjacking' % __file__)
+	print('[+] Usage: python {} <url>\n'.format(__file__))
+	sys.exit(1)
 
-# URL target
+# Get the target URL from command line arguments
 url = sys.argv[1]
 
-# Kode HTML untuk halaman target
+# HTML code for the target page
 html_target = '''
+<!DOCTYPE html>
 <html>
-    <head>
-        <title>Clickjacking!</title>
-    </head>
+<head>
+    <title>Clickjacking Alert!</title>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Clickjacking Vulnerability Alert!</h1>
+        <p>Your web application can be mounted within an iframe, making it vulnerable to Clickjacking.</p>
+        <p>Target URL: <a href="{}">{}</a></p>
+        <p>If you can see the target website below, it is <span class="vulnerable">VULNERABLE</span> to Clickjacking.</p>
+        <div class="iframe-container">
+            <iframe src="{}"></iframe>
+        </div>
+    </div>
 
-    <body>
-        <b style="font-size: larger; font-family: Verdana, Geneva, Tahoma, sans-serif;">
-            <p style="font-weight: bold;">Your Web Application Can be Mounted within an iFrame which makes it vulnerable to ClickJacking!</p>
-            <p>Target: <a href="{}">{}</a></p>
-            <p>If you see the target website rendered below, it is <font color="red">VULNERABLE</font>.</p>
-            <iframe width="900" height="600" src="{}"></iframe>
-            <iframe style="position: absolute; left: 45px; top: 250px; opacity: 0.7; font-family: verdana; background: AliceBlue;" src="cj-attacker.html"></iframe>
-        </b>
-    </body>
+    <iframe style="position: absolute; left: 49%; top: 30%; transform: translate(-50%, -50%); opacity: 0.7; font-family: verdana; background: AliceBlue; width: 270px; height: 120px; border: none;" src="attacker.html"></iframe>
+</body>
 </html>
 '''.format(url, url, url)
 
-# Kode HTML untuk halaman penyerang
+# HTML code for the attacker page
 html_attacker = '''
 <html>
-    <div style="opacity: 1.0; left: 10px; top: 50px; background: rgba(123, 210, 92, 0.802); font-family: verdana;">
+    <div style="opacity: 1.0; left: 10px; top: 50px; background: rgba(123, 210, 92, 0.802); font-family: Arial, Helvetica, sans-serif;">
         <center><a href="#">THIS IS AN EXAMPLE CLICKJACKING IFRAME AND LINK</a>
         <br>(normally invisible)</center>
     </div>
 </html>
 '''
 
-# Path ke file target dan attacker
-path_target = os.path.abspath('target.html')
-path_attacker = os.path.abspath('attacker.html')
+# Get the absolute paths for target and attacker files
+target_path = os.path.abspath('target.html')
+attacker_path = os.path.abspath('attacker.html')
 
-# URL lokal untuk file target
-local_url = 'file://' + path_target
+# Local URL for the target file
+local_url = 'file://' + target_path
 
-# Menyimpan kode HTML ke file
-with open(path_target, 'w') as target_file, open(path_attacker, 'w') as attacker_file:
+# Save the HTML code to files
+with open(target_path, 'w') as target_file, open(attacker_path, 'w') as attacker_file:
     target_file.write(html_target)
     attacker_file.write(html_attacker)
 
-# Membuka file target di peramban web
+# Open the target file in a web browser
 webbrowser.open(local_url)
 
 print('\n[+] Test Complete!')
