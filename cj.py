@@ -2,47 +2,57 @@ import os
 import sys
 import webbrowser
 
+# Cek jumlah argumen
 if len(sys.argv) != 2:
-	print('\n[+] Description: %s can quickly verify if a web page is vulnerable to clickjacking' % __file__)
-	print('[+] Usage: python %s <url>\n' % __file__)
-	exit(0)
+    print('\n[+] Description: This script quickly verifies if a web page is vulnerable to clickjacking')
+    print('[+] Usage: python {} <url>\n'.format(__file__))
+    sys.exit(1)
 
+# URL target
 url = sys.argv[1]
 
-html = '''
+# Kode HTML untuk halaman target
+html_target = '''
 <html>
-	<head>
-		<title>Clickjacking!</title>
-	</head>
-	<body>
-		<b style="font-size: larger; font-family: Verdana, Geneva, Tahoma, sans-serif;">
-		<p style="font: bold;">Your Web Application Can be Mounted within an iFrame which makes it vulnerable to ClickJacking!</p>
-		<p>Target: <a href="http://testphp.vulnweb.com/login.php">http://testphp.vulnweb.com/login.php</a></p>
-		<p>If you see the target website rendered below, it is <font color="red">VULNERABLE</font>.</p>
-		<iframe width="900" height="600" src="http://testphp.vulnweb.com/login.php"></iframe>
-		<iframe style="position: absolute; left: 45px; top: 250px; opacity: 0.7; font-family:verdana; background: AliceBlue;" src="cj-attacker.html"></iframe>
-		</b>
-	</body>
-</html>
-''' % (url, url, url)
+    <head>
+        <title>Clickjacking!</title>
+    </head>
 
-html2 = '''
+    <body>
+        <b style="font-size: larger; font-family: Verdana, Geneva, Tahoma, sans-serif;">
+            <p style="font-weight: bold;">Your Web Application Can be Mounted within an iFrame which makes it vulnerable to ClickJacking!</p>
+            <p>Target: <a href="{}">{}</a></p>
+            <p>If you see the target website rendered below, it is <font color="red">VULNERABLE</font>.</p>
+            <iframe width="900" height="600" src="{}"></iframe>
+            <iframe style="position: absolute; left: 45px; top: 250px; opacity: 0.7; font-family: verdana; background: AliceBlue;" src="cj-attacker.html"></iframe>
+        </b>
+    </body>
+</html>
+'''.format(url, url, url)
+
+# Kode HTML untuk halaman penyerang
+html_attacker = '''
 <html>
-	<div style="opacity: 1.0; left: 10px; top: 50px; background: rgba(123, 210, 92, 0.802); font-family:verdana;">
-		<center><a href="#">THIS IS AN EXAMPLE CLICKJACKING IFRAME AND LINK</a>
-		<br>(normally invisible)</center>
-	</div>
+    <div style="opacity: 1.0; left: 10px; top: 50px; background: rgba(123, 210, 92, 0.802); font-family: verdana;">
+        <center><a href="#">THIS IS AN EXAMPLE CLICKJACKING IFRAME AND LINK</a>
+        <br>(normally invisible)</center>
+    </div>
 </html>
 '''
 
-cjt = os.path.abspath('target.html')
-cja = os.path.abspath('attacker.html')
-localurl = 'file://' + cjt
+# Path ke file target dan attacker
+path_target = os.path.abspath('cj-target.html')
+path_attacker = os.path.abspath('cj-attacker.html')
 
-with open(cjt, 'w') as t, open (cja, 'w') as a:
-	t.write(html)
-	a.write(html2)
+# URL lokal untuk file target
+local_url = 'file://' + path_target
 
-webbrowser.open(localurl)
+# Menyimpan kode HTML ke file
+with open(path_target, 'w') as target_file, open(path_attacker, 'w') as attacker_file:
+    target_file.write(html_target)
+    attacker_file.write(html_attacker)
+
+# Membuka file target di peramban web
+webbrowser.open(local_url)
 
 print('\n[+] Test Complete!')
