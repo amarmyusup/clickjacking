@@ -10,12 +10,12 @@ The script renders the target website within an iframe and overlays it with an e
 
 ## Usage
 To test a web page for clickjacking vulnerability, run the script as follows:
-`python3 clickjack.py <url>`
+`python3 cj.py <url>`
 
 ### Output
 Creates two html pages: 
-* cj-target.html - the page that will be automatically opened in your browser
-* cj-attacker.html - a page that generates our sample attacking iframe
+* target.html - the page that will be automatically opened in your browser
+* attacker.html - a page that generates our sample attacking iframe
 
 * ### When the page is vulnerable:
 
