@@ -41,8 +41,8 @@ html_attacker = '''
 '''
 
 # Path ke file target dan attacker
-path_target = os.path.abspath('cj-target.html')
-path_attacker = os.path.abspath('cj-attacker.html')
+path_target = os.path.abspath('target.html')
+path_attacker = os.path.abspath('attacker.html')
 
 # URL lokal untuk file target
 local_url = 'file://' + path_target
