@@ -1,3 +1,4 @@
+![ClickJacking](clickjacking.png)
 # Clickjacking Vulnerability Tester
 
 This script is designed to assess the vulnerability of a web page to clickjacking attacks.
