@@ -3,7 +3,7 @@
 This script is designed to assess the vulnerability of a web page to clickjacking attacks.
 
 ## Description
-The script renders the target website within an iframe and overlays it with an example attack iframe. It is inspired by the proof-of-concept HTML boilerplate provided by OWASP (https://www.owasp.org/index.php/Testing_for_Clickjacking_(OTG-CLIENT-009)#How_to_Test).
+Attempts to render the target site in an iframe and places another iframe on top of it as an example attack. Inspired by the PoC html boilerplate provided by OWASP (https://www.owasp.org/index.php/Testing_for_Clickjacking_(OTG-CLIENT-009)#How_to_Test).
 
 ## Requirements
 - Python3
